@@ -1,0 +1,150 @@
+
+# This file was written by gpsim.
+
+# You can use this file for example like this:
+#     gpsim -s mycode.cod -c netlist.stc
+
+# If you want to add commands, you can create another .stc file
+# and load this file from it. Something like this:
+# ----------- myproject.stc ---------------
+# load s mycode.cod
+# frequency 12000000
+# load c netlist.stc
+# -----------------------------------------
+# You can then just load this new file:
+#     gpsim -c myproject.stc
+# and use netlist.stc whenever you save from the breadboard.
+#
+
+
+# Processor position:
+module library libgpsim_modules
+
+
+# Modules:
+p18f26k22.BreakOnReset = true
+p18f26k22.SafeMode = true
+p18f26k22.UnknownMode = true
+p18f26k22.WarnMode = true
+p18f26k22.tmr1_freq = 32768
+p18f26k22.tmr3_freq = 32768
+p18f26k22.tmr5_freq = 32768
+p18f26k22.xpos = 72
+p18f26k22.ypos = 90
+
+module load usart USART
+USART.rxbaud = 9600
+USART.txbaud = 9600
+USART.xpos = 270
+USART.ypos = 270
+
+module load switch CFG
+CFG.Rclosed = 0
+CFG.Ropen = 1e+08
+CFG.state = open
+CFG.xpos = 270
+CFG.ypos = 90
+
+module load switch LMB
+LMB.Rclosed = 0
+LMB.Ropen = 1e+08
+LMB.state = open
+LMB.xpos = 270
+LMB.ypos = 198
+
+module load switch RMB
+RMB.Rclosed = 0
+RMB.Ropen = 1e+08
+RMB.state = open
+RMB.xpos = 270
+RMB.ypos = 144
+
+module load pulldown GND
+GND.capacitance = 0
+GND.resistance = 0
+GND.voltage = 0
+GND.xpos = 396
+GND.ypos = 90
+
+module load pulldown GND2
+GND2.capacitance = 0
+GND2.resistance = 0
+GND2.voltage = 0
+GND2.xpos = 396
+GND2.ypos = 144
+
+module load pulldown GND3
+GND3.capacitance = 0
+GND3.resistance = 0
+GND3.voltage = 0
+GND3.xpos = 396
+GND3.ypos = 198
+
+module load pullup pull_up1
+pull_up1.capacitance = 0
+pull_up1.resistance = 10000
+pull_up1.voltage = 5
+pull_up1.xpos = 252
+pull_up1.ypos = 18
+
+module load pullup pull_up2
+pull_up2.capacitance = 0
+pull_up2.resistance = 10000
+pull_up2.voltage = 5
+pull_up2.xpos = 270
+pull_up2.ypos = 18
+
+module load led led1
+led1.ActiveState = high
+led1.color = red
+led1.xpos = 414
+led1.ypos = 252
+
+module load led led2
+led2.ActiveState = high
+led2.color = red
+led2.xpos = 504
+led2.ypos = 252
+
+
+
+# Connections:
+node wire_rx
+attach wire_rx USART.TXPIN p18f26k22.portc7
+
+node wire_tx
+attach wire_tx USART.RXPIN p18f26k22.portc6
+
+node sw1_gnd
+attach sw1_gnd LMB.A GND3.pin
+
+node sw2_gnd
+attach sw2_gnd RMB.A GND2.pin
+
+node sw3_gnd
+attach sw3_gnd CFG.A GND.pin
+
+node sw1_pic
+attach sw1_pic LMB.B pull_up1.pin
+
+node sw2_pic
+attach sw2_pic RMB.B pull_up2.pin
+
+node sw3_pic
+attach sw3_pic CFG.B p18f26k22.portb5
+
+node pup1
+attach pup1 LMB.B pull_up1.pin
+
+node pup2
+attach pup2 RMB.B pull_up2.pin
+
+node nled1
+attach nled1 led1.in p18f26k22.portb0
+
+node nled2
+attach nled2 led2.in p18f26k22.portb1
+
+
+
+# End.

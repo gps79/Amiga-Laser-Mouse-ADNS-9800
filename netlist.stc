@@ -1,0 +1,97 @@
+
+# This file was written by gpsim.
+
+# You can use this file for example like this:
+#     gpsim -s mycode.cod -c netlist.stc
+
+# If you want to add commands, you can create another .stc file
+# and load this file from it. Something like this:
+# ----------- myproject.stc ---------------
+# load s mycode.cod
+# frequency 12000000
+# load c netlist.stc
+# -----------------------------------------
+# You can then just load this new file:
+#     gpsim -c myproject.stc
+# and use netlist.stc whenever you save from the breadboard.
+#
+
+
+# Processor position:
+module library libgpsim_modules
+
+
+# Modules:
+p18f26k22.BreakOnReset = true
+p18f26k22.SafeMode = true
+p18f26k22.UnknownMode = true
+p18f26k22.WarnMode = true
+p18f26k22.tmr1_freq = 32768
+p18f26k22.tmr3_freq = 32768
+p18f26k22.tmr5_freq = 32768
+p18f26k22.xpos = 72
+p18f26k22.ypos = 126
+
+module load usart USART
+USART.rxbaud = 9600
+USART.txbaud = 9600
+USART.xpos = 288
+USART.ypos = 342
+
+module load pulldown CFG
+CFG.capacitance = 0
+CFG.resistance = 0
+CFG.voltage = 0
+CFG.xpos = 396
+CFG.ypos = 90
+
+module load pulldown LMB_IN
+LMB_IN.capacitance = 0
+LMB_IN.resistance = 0
+LMB_IN.voltage = 0
+LMB_IN.xpos = 396
+LMB_IN.ypos = 144
+
+module load pulldown RMB_IN
+RMB_IN.capacitance = 0
+RMB_IN.resistance = 0
+RMB_IN.voltage = 0
+RMB_IN.xpos = 396
+RMB_IN.ypos = 198
+
+module load led LMB_pressed_blk
+LMB_pressed_blk.ActiveState = high
+LMB_pressed_blk.color = red
+LMB_pressed_blk.xpos = 432
+LMB_pressed_blk.ypos = 252
+
+module load led RMB_pressed_blk
+RMB_pressed_blk.ActiveState = high
+RMB_pressed_blk.color = red
+RMB_pressed_blk.xpos = 432
+RMB_pressed_blk.ypos = 306
+
+
+
+# Connections:
+node wire_tx
+attach wire_tx USART.RXPIN p18f26k22.portb2
+
+node sw1_pic
+attach sw1_pic CFG.pin p18f26k22.portb5
+
+node sw2_pic
+attach sw2_pic LMB_IN.pin p18f26k22.portb4
+
+node sw3_pic
+attach sw3_pic RMB_IN.pin p18f26k22.portb3
+
+node nLMB_pressed_blk
+attach nLMB_pressed_blk LMB_pressed_blk.in p18f26k22.portb0
+
+node nRMB_pressed_blk
+attach nRMB_pressed_blk RMB_pressed_blk.in p18f26k22.portb1
+
+
+
+# End.

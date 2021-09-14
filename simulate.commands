@@ -1,0 +1,18 @@
+module lib libgpsim_modules
+proc pic18f26k22
+load amiga_mouse.cod
+CONFIG2H = 0x00 # gpsim simulator error. It doesn't recognize WDTEN=OFF directive; forcing manually
+load netlist.stc
+
+# for UART TX tracing
+scope.ch0 = "portb2"
+
+# for quadrature V h QV and QH signals tracing
+scope.ch1 = "portc6"
+scope.ch2 = "portc5"
+scope.ch3 = "portc7"
+scope.ch4 = "portc4"
+
+#break e 0x1062
+#break e 0x1070
+

@@ -1,0 +1,1 @@
+make && d:\projekty\SDCC\DIYpack25ep\microbrn.exe d:\projekty\SDCC\amiga_mouse\amiga_mouse.hex 18F23K22 || pause
